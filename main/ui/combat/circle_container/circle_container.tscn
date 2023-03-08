@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://pt4fa1vg5f0b"]
+
+[ext_resource type="Script" path="res://main/ui/combat/circle_container/circle_container.gd" id="1_6q5xp"]
+[ext_resource type="Texture2D" uid="uid://t0ph366do7v5" path="res://main/ui/combat/circle_container/background.png" id="2_1rwu8"]
+
+[node name="CircleContainer" type="Container"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_6q5xp")
+
+[node name="Background" type="TextureRect" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("2_1rwu8")
+
+[node name="Buttons" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Buttons"]
+layout_mode = 0
+offset_right = 18.0
+offset_bottom = 31.0
+text = "a"
+
+[node name="Button2" type="Button" parent="Buttons"]
+layout_mode = 0
+offset_right = 18.0
+offset_bottom = 31.0
+text = "b"
+
+[node name="Button3" type="Button" parent="Buttons"]
+layout_mode = 0
+offset_right = 18.0
+offset_bottom = 31.0
+text = "b
+"

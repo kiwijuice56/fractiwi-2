@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq6ekch7d2hfm"]
+
+[ext_resource type="Script" path="res://main/fps/player/fps_player.gd" id="1_ew617"]
+[ext_resource type="Script" path="res://main/fps/player/fps_player_head.gd" id="2_dvd62"]
+[ext_resource type="Script" path="res://main/fps/player/crouch.gd" id="3_ds1yx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ewccp"]
+
+[node name="FpsPlayer" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_ew617")
+walk_speed = 5.0
+jump_speed = 10.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ewccp")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.520155, 0)
+script = ExtResource("2_dvd62")
+mouse_sensitivity = 3.0
+
+[node name="MainCamera" type="Camera3D" parent="CameraPivot"]
+unique_name_in_owner = true
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true
+
+[node name="States" type="Node" parent="."]
+
+[node name="Crouch" type="Node" parent="States" node_paths=PackedStringArray("player", "cam")]
+script = ExtResource("3_ds1yx")
+player = NodePath("../..")
+cam = NodePath("../../CameraPivot/MainCamera")
+crouch_speed = 2
+fov_multiplier = 0.9
+cam_offset = -0.7
+
+[node name="DebugLayer" type="CanvasLayer" parent="."]
+
+[node name="Root" type="Control" parent="DebugLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpeedLabel" type="Label" parent="DebugLayer/Root"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0

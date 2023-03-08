@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://l2uii20pi0bc"]
+
+[ext_resource type="PackedScene" uid="uid://bq6ekch7d2hfm" path="res://main/fps/player/fps_player.tscn" id="1_2t7v1"]
+[ext_resource type="PackedScene" uid="uid://pt4fa1vg5f0b" path="res://main/ui/combat/circle_container/circle_container.tscn" id="1_eqxgm"]
+[ext_resource type="Texture2D" uid="uid://ch0i7wibhm7al" path="res://icon.svg" id="2_il35r"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_br5xy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cajd"]
+albedo_texture = ExtResource("2_il35r")
+texture_filter = 0
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_pjux7"]
+data = PackedVector3Array(0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4p4wm"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+ground_bottom_color = Color(1, 1, 1, 1)
+ground_horizon_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Sky" id="Sky_m8b8j"]
+sky_material = SubResource("ProceduralSkyMaterial_4p4wm")
+
+[sub_resource type="Environment" id="Environment_sfyiw"]
+background_mode = 2
+sky = SubResource("Sky_m8b8j")
+
+[node name="Main" type="Node"]
+
+[node name="UI" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+
+[node name="CombatMenu" type="Control" parent="UI/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CircleContainer" parent="UI/CanvasLayer/CombatMenu" instance=ExtResource("1_eqxgm")]
+offset_left = 199.0
+offset_top = 210.0
+offset_right = 239.0
+offset_bottom = 250.0
+
+[node name="FpsPlayer" parent="." instance=ExtResource("1_2t7v1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95566, 0)
+
+[node name="Plane" type="MeshInstance3D" parent="."]
+transform = Transform3D(32, 0, 0, 0, -1.39876e-06, 32, 0, -32, -1.39876e-06, 0, 0, 0)
+mesh = SubResource("QuadMesh_br5xy")
+surface_material_override/0 = SubResource("StandardMaterial3D_8cajd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Plane"]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_pjux7")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sfyiw")
